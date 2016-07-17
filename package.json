@@ -12,10 +12,18 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/smartprocure/directory-metagen.git"
+  },
   "keywords": [
-    "requirejs"
+    "requirejs",
     "requirejs-metagen"
   ],
   "author": "Samuel Greene <sgreene@smartprocure.us>",
-  "license": "MIT"
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/smartprocure/directory-metagen/issues"
+  },
+  "homepage": "https://github.com/smartprocure/directory-metagen#readme"
 }
