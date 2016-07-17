@@ -1,0 +1,21 @@
+{
+  "name": "directory-metagen",
+  "version": "1.0.0",
+  "description": "Generates directory meta files for things such as including entire directories in requirejs",
+  "main": "index.js",
+  "dependencies": {
+    "bluebird": "^3.4.1",
+    "lodash": "^4.13.1",
+    "recursive-readdir": "^2.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "requirejs"
+    "requirejs-metagen"
+  ],
+  "author": "Samuel Greene <sgreene@smartprocure.us>",
+  "license": "MIT"
+}
