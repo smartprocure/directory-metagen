@@ -5,10 +5,13 @@ Started as a feature request on `requirejs-metagen` but has grown beyond it (as 
 
 # API
 `directory-metagen` takes an object with the following parameters:
-`path` - the directory in which to look
-`format` - the format function to use to generate the output
-`output` - the relative destination file path (optional, defaults to `all.js`)
-`exclusions` - an array of minimatch glob for exclusion, see recursive-readdir for more info
+
+| Name | Description |
+| --- | --- |
+|`path` | The directory in which to look |
+|`format` | The format function to use to generate the output |
+|`output` | The relative destination file path (optional, defaults to `all.js`) |
+|`exclusions` | An array of minimatch glob for exclusion, see recursive-readdir for more info |
 
 # Supported Formats
 
