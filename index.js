@@ -17,7 +17,7 @@ var metagen = dir => filesRelative(dir.path, dir.exclusions || [dir.output || 'a
 metagen.formats = {};
 metagen.formats.commonJS = files => `define(function(require) {
     return {
-        ${ files.map(file => `'${ noExt(file) }': require('./${ file }')`).join(',\n        ') }
+        ${ files.map(file => `'${ noExt(file) }': require('./${ noExt(file) }')`).join(',\n        ') }
     };
 });`;
 metagen.formats.amd = files => `define([
