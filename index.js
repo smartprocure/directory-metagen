@@ -32,10 +32,10 @@ metagen.formats.amd = files => `define([
 var zipObjectDeep = require('lodash/zipObjectDeep');
 
 // Deep Formats
-var deepKeys    = _.map(_.flow(noExt, _.replace('/', '.'))),
+var deepKeys    = _.map(_.flow(noExt, _.replace(/\//g, '.'))),
     stringify   = x => JSON.stringify(x, null, 4),
     indent      = _.replace(/\n/g, '\n    '),
-    unquote     = _.replace(/"/g, ''),
+    unquote     = _.replace(/"require(.*)'\)"/g, "require$1')"),
     deepify     = _.flow(zipObjectDeep, stringify, indent, unquote);
     
 metagen.formats.deepCommonJS = files => `define(function(require) {
