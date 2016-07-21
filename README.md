@@ -12,6 +12,7 @@ Started as a feature request on `requirejs-metagen` but has grown beyond it (as 
 |`format` | The format function to use to generate the output |
 |`output` | The relative destination file path (optional, defaults to `all.js`) |
 |`exclusions` | An array of minimatch glob for exclusion, see recursive-readdir for more info |
+|`filter` | A function which will filter the matched files, typically to whitelist extensions. Defaults to `/.js|.html|.jsx|.ts|.coffee|.less|.css|.sass|.hbs|.ejs/` |
 
 # Supported Formats
 

@@ -7,11 +7,13 @@ var _           = require('lodash/fp'),
 // Path Utils
 var filesRelative = (dir, ex) => readDir(dir, ex).map(x => x.slice(dir.length));
 var noExt = file => file.slice(0, _.lastIndexOf('.', file));
+var test = x => y => x.test(y);
 
 // Core
-var metagen = dir => filesRelative(dir.path, dir.exclusions || [dir.output || '__all.js']).then(files =>
-    fs.writeFileAsync(dir.path + (dir.output || '__all.js'), dir.format(files, dir))
-);
+var filter = _.filter(test(/.js|.html|.jsx|.ts|.coffee|.less|.css|.sass|.hbs|.ejs/));
+var metagen = dir => filesRelative(dir.path, dir.exclusions || [dir.output || '__all.js'])
+    .then(dir.filter || filter)
+    .then(files => fs.writeFileAsync(dir.path + (dir.output || '__all.js'), dir.format(files, dir)));
 
 // Formats
 metagen.formats = {};
