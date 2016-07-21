@@ -9,8 +9,8 @@ var filesRelative = (dir, ex) => readDir(dir, ex).map(x => x.slice(dir.length));
 var noExt = file => file.slice(0, _.lastIndexOf('.', file));
 
 // Core
-var metagen = dir => filesRelative(dir.path, dir.exclusions || [dir.output || 'all.js']).then(files =>
-    fs.writeFileAsync(dir.path + (dir.output || 'all.js'), dir.format(files, dir))
+var metagen = dir => filesRelative(dir.path, dir.exclusions || [dir.output || '__all.js']).then(files =>
+    fs.writeFileAsync(dir.path + (dir.output || '__all.js'), dir.format(files, dir))
 );
 
 // Formats
