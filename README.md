@@ -1,5 +1,5 @@
 # directory-metagen
-[![npm version](https://badge.fury.io/js/directory-metagen.svg)](https://badge.fury.io/js/directory-metagen) ![dependencies](https://david-dm.org/smartprocure/directory-metagen.svg)]
+[![npm version](https://badge.fury.io/js/directory-metagen.svg)](https://badge.fury.io/js/directory-metagen) ![dependencies](https://david-dm.org/smartprocure/directory-metagen.svg)
 
 Generates directory meta files for things such as including entire directories in requirejs.
 
