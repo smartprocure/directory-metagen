@@ -1,17 +1,17 @@
 // Inspired by (but complete rewrite of) requirejs-metagen
-var _           = require('lodash/fp'),
+let _           = require('lodash/fp'),
     Promise     = require('bluebird'),
     readDir     = Promise.promisify(require('recursive-readdir')),
     fs          = Promise.promisifyAll(require('fs'));
 
 // Path Utils
-var filesRelative = (dir, ex) => readDir(dir, ex).map(x => x.slice(dir.length));
-var noExt = file => file.slice(0, _.lastIndexOf('.', file));
-var test = x => y => x.test(y);
+let filesRelative = (dir, ex) => readDir(dir, ex).map(x => x.slice(dir.length));
+let noExt = file => file.slice(0, _.lastIndexOf('.', file));
+let test = x => y => x.test(y);
 
 // Core
-var filter = _.filter(test(/.js|.html|.jsx|.ts|.coffee|.less|.css|.sass|.hbs|.ejs/));
-var metagen = dir => filesRelative(dir.path, dir.exclusions || [dir.output || '__all.js'])
+let filter = _.filter(test(/.js|.html|.jsx|.ts|.coffee|.less|.css|.sass|.hbs|.ejs/));
+let metagen = dir => filesRelative(dir.path, dir.exclusions || [dir.output || '__all.js'])
     .then(dir.filter || filter)
     .then(files => fs.writeFileAsync(dir.path + (dir.output || '__all.js'), dir.format(files, dir)));
 
@@ -31,12 +31,12 @@ metagen.formats.amd = files => `define([
 });`;
 
 // Deep Formats
-var deepKeys    = _.map(_.flow(noExt, _.replace(/\//g, '.'))),
+let deepKeys    = _.map(_.flow(noExt, _.replace(/\//g, '.'))),
     stringify   = x => JSON.stringify(x, null, 4),
     indent      = _.replace(/\n/g, '\n    '),
     unquote     = _.replace(/"require(.*)'\)"/g, "require$1')"),
     deepify     = _.flow(_.zipObjectDeep, stringify, indent, unquote);
-    
+
 metagen.formats.deepCommonJS = files => `define(function(require) {
     return ${ deepify(deepKeys(files), files.map(file => `require('./${ noExt(file) }')`))};
 });`;
