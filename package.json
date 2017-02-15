@@ -5,7 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "bluebird": "^3.4.1",
-    "lodash": "^4.14.0",
+    "lodash": "^4.17.3",
     "recursive-readdir": "^2.1.1"
   },
   "devDependencies": {},
