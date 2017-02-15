@@ -4,7 +4,7 @@
   "description": "Generates directory meta files for things such as including entire directories in requirejs",
   "main": "index.js",
   "dependencies": {
-    "bluebird": "^3.4.1",
+    "bluebird": "^3.4.7",
     "lodash": "^4.17.3",
     "recursive-readdir": "^2.1.1"
   },
