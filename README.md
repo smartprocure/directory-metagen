@@ -1,4 +1,6 @@
 # directory-metagen
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/smartprocure/directory-metagen.svg)](https://greenkeeper.io/)
 [![npm version](https://badge.fury.io/js/directory-metagen.svg)](https://badge.fury.io/js/directory-metagen) ![dependencies](https://david-dm.org/smartprocure/directory-metagen.svg) [![Code Climate](https://codeclimate.com/github/smartprocure/directory-metagen/badges/gpa.svg)](https://codeclimate.com/github/smartprocure/directory-metagen)
 
 Generates directory meta files for things such as including entire directories in requirejs.
