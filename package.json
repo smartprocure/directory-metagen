@@ -8,9 +8,12 @@
     "lodash": "^4.17.3",
     "recursive-readdir": "^2.1.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "standard": "^8.6.0"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "standard"
   },
   "repository": {
     "type": "git",
