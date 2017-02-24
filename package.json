@@ -1,6 +1,6 @@
 {
   "name": "directory-metagen",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Generates directory meta files for things such as including entire directories in requirejs",
   "main": "index.js",
   "dependencies": {
@@ -9,11 +9,20 @@
     "recursive-readdir": "^2.1.1"
   },
   "devDependencies": {
-    "standard": "^8.6.0"
+    "chokidar": "^1.6.1",
+    "chokidar-cli": "^1.2.0",
+    "mock-fs": "^4.0.0",
+    "standard": "^8.6.0",
+    "mocha": "^3.2.0",
+    "mocha-lcov-reporter": "^1.2.0",
+    "nyc": "^10.1.2"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "standard"
+    "lint": "standard",
+    "test": "mocha",
+    "test:watch": "chokidar 'index.js' 'test/*.js' -c 'npm t'",
+    "coverage": "nyc node_modules/.bin/mocha test",
+    "cicoverage": "nyc --reporter=lcov node_modules/.bin/mocha test"
   },
   "repository": {
     "type": "git",

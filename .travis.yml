@@ -1,0 +1,24 @@
+sudo: false
+language: node_js
+node_js:
+- 'node'
+cache:
+  directories:
+    - node_modules
+notifications:
+  email: false
+deploy:
+  provider: npm
+  email: $NPM_EMAIL
+  api_key: $NPM_KEY
+  skip_cleanup: true
+  on:
+    branch: master
+before_script:
+    - npm run lint
+after_script:
+    - npm run cicoverage
+    - ./node_modules/coveralls/bin/coveralls.js < ./coverage/lcov.info
+    - ./node_modules/.bin/codacy-coverage < ./coverage/lcov.info
+    - ./node_modules/.bin/codeclimate-test-reporter < ./coverage/lcov.info
+    - rm -fr ./coverage
