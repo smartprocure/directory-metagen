@@ -12,8 +12,8 @@ let test = x => y => x.test(y)
 // Core
 let filter = _.filter(test(/.js|.html|.jsx|.ts|.coffee|.less|.css|.sass|.hbs|.ejs/))
 let metagen = dir => filesRelative(dir.path, dir.exclusions || [dir.output || '__all.js'])
-    .then(dir.filter || filter)
-    .then(files => fs.writeFileAsync(dir.path + (dir.output || '__all.js'), dir.format(files, dir)))
+  .then(dir.filter || filter)
+  .then(files => new Promise((resolve, reject) => fs.writeFileAsync(dir.path + (dir.output || '__all.js'), dir.format(files, dir)).then(resolve).catch(reject)))
 
 // Formats
 metagen.formats = {}

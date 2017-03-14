@@ -1,0 +1,32 @@
+# For more options, check: https://circleci.com/docs/config-sample/
+machine:
+  timezone:
+    America/New_York
+  node:
+    version:
+        7.6.0
+
+# Authenticating to NPM using an existing token obtained from ~/.npmrc
+dependencies:
+  pre:
+    - echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
+
+test:
+  pre:
+    - npm run lint
+  post:
+    - npm run cicoverage
+#    - ./node_modules/coveralls/bin/coveralls.js < ./coverage/lcov.info
+#    - ./node_modules/.bin/codacy-coverage < ./coverage/lcov.info
+#    - ./node_modules/.bin/codeclimate-test-reporter < ./coverage/lcov.info
+#    - rm -fr ./coverage
+
+# run npm publish on tagged commits
+# To deploy a new version, simply run:
+#     npm version 0.0.1 # New version instead of 0.0.1
+#     git push --follow-tags
+# deployment:
+#   npm:
+#     tag: /v[0-9]+(\.[0-9]+)*/
+#     commands:
+#       - npm publish
