@@ -4,18 +4,20 @@ let Promise = require('bluebird')
 let readDir = Promise.promisify(require('recursive-readdir'))
 let fs = Promise.promisifyAll(require('fs'))
 
+let slice = start => thing => thing.slice(start)
+
 // Path Utils
-let filesRelative = (dir, ex) => readDir(dir, ex).map(x => x.slice(dir.length))
+let relativeFilenames = (dir, exclusions) => readDir(dir, exclusions).map(slice(dir.length))
 let noExt = file => file.slice(0, _.lastIndexOf('.', file))
-let test = x => y => x.test(y)
+let test = regex => str => regex.test(str) // This mirrors the test function in Ramda: http://ramdajs.com/docs/
 
 // Core
-let filter = _.filter(test(/.js|.html|.jsx|.ts|.coffee|.less|.css|.sass|.hbs|.ejs/))
-let metagen = dir => filesRelative(dir.path, dir.exclusions || [dir.output || '__all.js'])
-  .then(dir.filter || filter)
-  .then(files => new Promise((resolve, reject) => fs.writeFileAsync(dir.path + (dir.output || '__all.js'), dir.format(files, dir)).then(resolve).catch(reject)))
+let defaultFilter = _.filter(test(/.js|.html|.jsx|.ts|.coffee|.less|.css|.sass|.hbs|.ejs/))
+let metagen = dir => relativeFilenames(dir.path, dir.exclusions || [dir.output || '__all.js'])
+    .then(dir.filter || defaultFilter)
+    .then(files => fs.writeFileAsync(dir.path + (dir.output || '__all.js'), dir.format(files, dir)))
 
-// Formats
+// Output formats
 metagen.formats = {}
 metagen.formats.commonJS = files => `define(function(require) {
     return {
