@@ -122,6 +122,52 @@ describe('metagen', function () {
 });`)
   })
 
+  it('es6', async () => {
+    await metagen({
+      path: 'public/publicFiles/',
+      format: metagen.formats.es6
+    })
+
+    const file = await fs.readFileAsync('public/publicFiles/__all.js', 'utf8')
+
+    assert.equal(file, `import rootcss from './rootcss';
+import roothtml from './roothtml';
+import rootjs from './rootjs';
+import coffee_file1 from './coffee/file1';
+import coffee_file2 from './coffee/file2';
+import css_file1 from './css/file1';
+import css_file2 from './css/file2';
+import js_file1 from './js/file1';
+import js_file2 from './js/file2';
+import jsx_file1 from './jsx/file1';
+import jsx_file2 from './jsx/file2';
+import less_file1 from './less/file1';
+import less_file2 from './less/file2';
+import sass_file1 from './sass/file1';
+import sass_file2 from './sass/file2';
+import ts_file1 from './ts/file1';
+import ts_file2 from './ts/file2'
+export default {
+    rootcss,
+    roothtml,
+    rootjs,
+    coffee_file1,
+    coffee_file2,
+    css_file1,
+    css_file2,
+    js_file1,
+    js_file2,
+    jsx_file1,
+    jsx_file2,
+    less_file1,
+    less_file2,
+    sass_file1,
+    sass_file2,
+    ts_file1,
+    ts_file2
+}`)
+  })
+
   it('deepCommonJS', async () => {
     await metagen({
       path: 'public/publicFiles/',

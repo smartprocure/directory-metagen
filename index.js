@@ -7,6 +7,8 @@ let fs = Promise.promisifyAll(require('fs'))
 let slice = start => thing => thing.slice(start)
 
 // Path Utils
+let sanitizeFileName = file => file.replace(/-|\.|\//g, '_')
+let filename = file => noExt(_.last(file.split('/')))
 let relativeFilenames = (dir, exclusions) => readDir(dir, exclusions).map(slice(dir.length))
 let noExt = file => file.slice(0, _.lastIndexOf('.', file))
 let test = regex => str => regex.test(str) // This mirrors the test function in Ramda: http://ramdajs.com/docs/
@@ -14,8 +16,15 @@ let test = regex => str => regex.test(str) // This mirrors the test function in 
 // Core
 let defaultFilter = _.filter(test(/.js|.html|.jsx|.ts|.coffee|.less|.css|.sass|.hbs|.ejs/))
 let metagen = dir => relativeFilenames(dir.path, dir.exclusions || [dir.output || '__all.js'])
-    .then(dir.filter || defaultFilter)
-    .then(files => fs.writeFileAsync(dir.path + (dir.output || '__all.js'), dir.format(files, dir)))
+  .then(dir.filter || defaultFilter)
+  .then(files => fs.writeFileAsync(dir.path + (dir.output || '__all.js'), dir.format(files, dir)))
+
+metagen.utils = {
+  relativeFilenames,
+  noExt,
+  sanitizeFileName,
+  filename
+}
 
 // Output formats
 metagen.formats = {}
@@ -47,5 +56,14 @@ metagen.formats.deepAMD = files => `define([
 ], function() {
     return ${deepify(deepKeys(files), files.map((file, i) => `arguments[${i}]`))};
 });`
+
+var stripIndex = file => file.replace(/\/index$/, '')
+var varName = _.flow(noExt, stripIndex, sanitizeFileName)
+metagen.formats.es6 = files => `${
+    files.map(file => `import ${varName(file)} from './${noExt(file)}'`).join(';\n')
+}
+export default {
+    ${files.map(file => `${varName(file)}`).join(',\n    ')}
+}`
 
 module.exports = metagen

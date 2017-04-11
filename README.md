@@ -1,4 +1,4 @@
-﻿# directory-metagen
+# directory-metagen
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/smartprocure/directory-metagen.svg)](https://greenkeeper.io/)
 [![npm version](https://badge.fury.io/js/directory-metagen.svg)](https://badge.fury.io/js/directory-metagen) ![dependencies](https://david-dm.org/smartprocure/directory-metagen.svg) [![Code Climate](https://codeclimate.com/github/smartprocure/directory-metagen/badges/gpa.svg)](https://codeclimate.com/github/smartprocure/directory-metagen)
@@ -109,6 +109,20 @@ define(function(require) {
         }
     };
 });
+```
+
+## es6
+`es6` format outputs a es6 module (e.g. `import * as FileName from 'filename'` followed by `export { FileName }`). Also supports sanitizing filenames and deeply nested directory structures, and automatically allows referencing `index` js files by the parent folder name.
+### Example output
+```js
+import * as dependency_a_foo from 'dependency-a/foo'
+import * as dependency_b_baz from 'dependency-b/baz'
+import * as dependency_b_bar from 'dependency-b/bar'
+export {
+    dependency_a_foo,
+    dependency_b_baz,
+    dependency_b_bar
+}
 ```
 
 # Usage with Gulp

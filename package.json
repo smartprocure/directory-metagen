@@ -1,6 +1,6 @@
 {
   "name": "directory-metagen",
-  "version": "1.0.6",
+  "version": "1.2.0",
   "description": "Generates directory meta files for things such as including entire directories in requirejs",
   "main": "index.js",
   "dependencies": {
