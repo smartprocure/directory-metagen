@@ -11,11 +11,14 @@
   "devDependencies": {
     "chokidar": "^1.6.1",
     "chokidar-cli": "^1.2.0",
-    "mock-fs": "^4.0.0",
-    "standard": "^10.0.0-beta.0",
+    "codacy-coverage": "^2.0.1",
+    "codeclimate-test-reporter": "^0.4.1",
+    "coveralls": "^2.11.16",
     "mocha": "^3.2.0",
     "mocha-lcov-reporter": "^1.2.0",
-    "nyc": "^10.1.2"
+    "mock-fs": "^4.0.0",
+    "nyc": "^10.1.2",
+    "standard": "^10.0.0-beta.0"
   },
   "scripts": {
     "lint": "standard",
