@@ -21,7 +21,8 @@
     "standard": "^10.0.0-beta.0"
   },
   "scripts": {
-    "lint": "standard",
+    "lint": "./node_modules/.bin/standard",
+    "lint-fix": "./node_modules/.bin/standard --fix",
     "test": "mocha",
     "test:watch": "chokidar 'index.js' 'test/*.js' -c 'npm t'",
     "coverage": "nyc node_modules/.bin/mocha test",
