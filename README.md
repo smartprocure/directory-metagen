@@ -1,4 +1,4 @@
-# directory-metagen
+﻿# directory-metagen
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/smartprocure/directory-metagen.svg)](https://greenkeeper.io/)
 [![npm version](https://badge.fury.io/js/directory-metagen.svg)](https://badge.fury.io/js/directory-metagen) ![dependencies](https://david-dm.org/smartprocure/directory-metagen.svg) [![Code Climate](https://codeclimate.com/github/smartprocure/directory-metagen/badges/gpa.svg)](https://codeclimate.com/github/smartprocure/directory-metagen)
@@ -146,4 +146,23 @@ gulp.task('metagen-watch', function() {
         .on('add', x => gulp.start('metagen'))
         .on('unlink', x => gulp.start('metagen'));
 });
+```
+
+# CLI
+
+This repo also provides a CLI. This CLI comes free once
+directory-metagen is installed, and is available in npm scripts as
+`metagen`, and directly at `./node_modules/.bin/metagen`.
+
+The CLI can be used as follows:
+```
+$ ./node_modules/.bin/metagen
+usage: metagen [OPTIONS] <path> [format] [output]
+options:
+    -v, --version     Print tool version and exit.
+    -h, --help        Print this help and exit.
+    --watch           watches the input path for changes and re-generates the
+                      output.
+    --exclusions=ARG  expects a comma separated list of paths to exclude.
+    --filter=ARG      expects a valid regular expression syntax to filter files.
 ```
