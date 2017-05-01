@@ -1,6 +1,6 @@
 {
   "name": "directory-metagen",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "description": "Generates directory meta files for things such as including entire directories in requirejs",
   "main": "index.js",
   "bin": {
@@ -18,6 +18,7 @@
     "codacy-coverage": "^2.0.1",
     "codeclimate-test-reporter": "^0.4.1",
     "coveralls": "^2.11.16",
+    "danger": "^0.15.0",
     "mocha": "^3.2.0",
     "mocha-lcov-reporter": "^1.2.0",
     "mock-fs": "^4.0.0",
@@ -25,6 +26,7 @@
     "standard": "^10.0.0-beta.0"
   },
   "scripts": {
+    "danger": "danger",
     "lint": "./node_modules/.bin/standard",
     "lint-fix": "./node_modules/.bin/standard --fix",
     "test": "mocha",

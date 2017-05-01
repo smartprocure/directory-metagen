@@ -16,6 +16,7 @@ dependencies:
 
 test:
   pre:
+    - npm run danger
     - npm run lint
   post:
     - npm run cicoverage
