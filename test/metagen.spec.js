@@ -42,6 +42,47 @@ describe('metagen', function () {
     mockFS.restore()
   })
 
+  it('Output Option', async () => {
+    mockFS({
+      'public/publicFiles': {
+        'output': {
+          'file1.js': 'console.log("JS file")',
+          'file2.js': 'console.log("JS file")'
+        }
+      }
+    })
+
+    await metagen({
+      output: '__catalog.js',
+      path: 'public/publicFiles/output',
+      format: metagen.formats.commonJS
+    })
+
+    const fileCommonJS = await fs.readFileAsync('public/publicFiles/output/__catalog.js', 'utf8')
+
+    assert.equal(fileCommonJS, `define(function(require) {
+    return {
+        'file1': require('./file1'),
+        'file2': require('./file2')
+    };
+});`)
+
+    await metagen({
+      output: '__catalog.js',
+      path: 'public/publicFiles/output',
+      format: metagen.formats.es6
+    })
+
+    const fileES6 = await fs.readFileAsync('public/publicFiles/output/__catalog.js', 'utf8')
+
+    assert.equal(fileES6, `import file1 from './file1';
+import file2 from './file2';
+export default {
+    file1,
+    file2
+}`)
+  })
+
   it('commonJS', async () => {
     await metagen({
       path: 'public/publicFiles/',
@@ -146,7 +187,7 @@ import less_file2 from './less/file2';
 import sass_file1 from './sass/file1';
 import sass_file2 from './sass/file2';
 import ts_file1 from './ts/file1';
-import ts_file2 from './ts/file2'
+import ts_file2 from './ts/file2';
 export default {
     rootcss,
     roothtml,

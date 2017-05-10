@@ -1,3 +1,6 @@
+# 1.3.2
+- Addressed the output issue #16.
+
 # 1.3.1
 - Added danger-js to our repo.
 

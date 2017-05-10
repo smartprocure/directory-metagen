@@ -25,7 +25,7 @@ if (!changed.changelog) {
 
 // Requires a version update in package.json
 const packageDiff = danger.git.diffForFile('package.json')
-if (!changed.packageJSON && packageDiff.includes('version')) {
+if (!changed.packageJSON && packageDiff && packageDiff.includes('version')) {
   log(fail, 'Please bump up the version')
 }
 

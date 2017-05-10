@@ -3,11 +3,13 @@ let _ = require('lodash/fp')
 let Promise = require('bluebird')
 let readDir = Promise.promisify(require('recursive-readdir'))
 let fs = Promise.promisifyAll(require('fs'))
+let path = require('path')
 
 let slice = start => thing => thing.slice(start)
 
 // Path Utils
 let sanitizeFileName = file => file.replace(/-|\.|\//g, '_')
+let stripLeadingSlash = file => file.replace(/^\//g, '')
 let filename = file => noExt(_.last(file.split('/')))
 let relativeFilenames = (dir, exclusions) => readDir(dir, exclusions).map(slice(dir.length))
 let noExt = file => file.slice(0, _.lastIndexOf('.', file))
@@ -15,9 +17,12 @@ let test = regex => str => regex.test(str) // This mirrors the test function in 
 
 // Core
 let defaultFilter = _.filter(test(/.js|.html|.jsx|.ts|.coffee|.less|.css|.sass|.hbs|.ejs/))
-let metagen = dir => relativeFilenames(dir.path, dir.exclusions || [dir.output || '__all.js'])
-  .then(dir.filter || defaultFilter)
-  .then(files => fs.writeFileAsync(dir.path + (dir.output || '__all.js'), dir.format(files, dir)))
+let metagen = options => relativeFilenames(options.path, options.exclusions || [options.output || '__all.js'])
+  .then(options.filter || defaultFilter)
+  .then(files => fs.writeFileAsync(
+      path.join(options.path, options.output || '__all.js'),
+      options.format(files.map(stripLeadingSlash), options))
+  )
 
 metagen.utils = {
   relativeFilenames,
@@ -60,7 +65,7 @@ metagen.formats.deepAMD = files => `define([
 var stripIndex = file => file.replace(/\/index$/, '')
 var varName = _.flow(noExt, stripIndex, sanitizeFileName)
 metagen.formats.es6 = files => `${
-    files.map(file => `import ${varName(file)} from './${noExt(file)}'`).join(';\n')
+    files.map(file => `import ${varName(file)} from './${noExt(file)}';`).join('\n')
 }
 export default {
     ${files.map(file => `${varName(file)}`).join(',\n    ')}
