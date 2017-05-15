@@ -11,7 +11,7 @@
     "chokidar": "^1.6.1",
     "dashdash": "^1.14.1",
     "lodash": "^4.17.3",
-    "recursive-readdir": "^2.1.1"
+    "recursive-readdir": "^2.2.1"
   },
   "devDependencies": {
     "chokidar-cli": "^1.2.0",
