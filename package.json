@@ -1,6 +1,6 @@
 {
   "name": "directory-metagen",
-  "version": "1.3.2",
+  "version": "1.4.0",
   "description": "Generates directory meta files for things such as including entire directories in requirejs",
   "main": "index.js",
   "bin": {
@@ -10,6 +10,7 @@
     "bluebird": "^3.5.0",
     "chokidar": "^1.6.1",
     "dashdash": "^1.14.1",
+    "js-beautify": "^1.6.14",
     "lodash": "^4.17.3",
     "recursive-readdir": "^2.1.1"
   },

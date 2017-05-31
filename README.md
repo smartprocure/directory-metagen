@@ -45,15 +45,15 @@ some_dependencies/
 ```js
 // some_dependencies/__all.js
 define([
-    'dependency-a/foo',
-    'dependency-b/bar',
-    'dependency-b/baz'
+  'dependency-a/foo',
+  'dependency-b/bar',
+  'dependency-b/baz'
 ], function() {
-    return {
-        'dependency-a/foo': arguments[0],
-        'dependency-b/bar': arguments[1],
-        'dependency-b/baz': arguments[2]
-    }
+  return {
+    'dependency-a/foo': arguments[0],
+    'dependency-b/bar': arguments[1],
+    'dependency-b/baz': arguments[2]
+  }
 });
 ```
 
@@ -63,51 +63,11 @@ define([
 ```js
 // some_dependencies/__all.js
 define(function(require) {
-    return {
-        'dependency-a/foo': require('./dependency-a/foo'),
-        'dependency-b/bar': require('./dependency-b/bar'),
-        'dependency-b/baz': require('./dependency-b/baz')
-    };
-});
-```
-
-## deepAMD
-`deepAMD` format is just like `amd`, except that the object is nested so directories have child properties corresponding to files (e.g. `{ a: { b: { c: file } } }` instead of `{ 'a.b.c': file }`) 
-### Example output
-```js
-// some_dependencies/__all.js
-define([
-    'dependency-a/foo',
-    'dependency-b/bar',
-    'dependency-b/baz'
-], function() {
-    return {
-        "dependency-a": {
-            "foo": "arguments[0]"
-        },
-        "dependency-b": {
-            "bar": "arguments[1]",
-            "baz": "arguments[2]"
-        }
-    };
-});
-```
-
-## deepCommonJS
-`deepCommonJS` format is just like `commonJS`, except that the object is nested so directories have child properties corresponding to files (e.g. `{ a: { b: { c: file } } }` instead of `{ 'a.b.c': file }`) 
-### Example output
-```js
-// some_dependencies/__all.js
-define(function(require) {
-    return {
-        "dependency-a": {
-            "foo": require('./dependency-a/foo')
-        },
-        "dependency-b": {
-            "baz": require('./dependency-b/baz'),
-            "bar": require('./dependency-b/bar')
-        }
-    };
+  return {
+    'dependency-a/foo': require('./dependency-a/foo'),
+    'dependency-b/bar': require('./dependency-b/bar'),
+    'dependency-b/baz': require('./dependency-b/baz')
+  };
 });
 ```
 
@@ -119,9 +79,67 @@ import * as dependency_a_foo from 'dependency-a/foo'
 import * as dependency_b_baz from 'dependency-b/baz'
 import * as dependency_b_bar from 'dependency-b/bar'
 export {
-    dependency_a_foo,
-    dependency_b_baz,
-    dependency_b_bar
+  dependency_a_foo,
+  dependency_b_baz,
+  dependency_b_bar
+}
+```
+
+## deepAMD
+`deepAMD` format is just like `amd`, except that the object is nested so directories have child properties corresponding to files (e.g. `{ a: { b: { c: file } } }` instead of `{ 'a.b.c': file }`) 
+### Example output
+```js
+// some_dependencies/__all.js
+define([
+  'dependency-a/foo',
+  'dependency-b/bar',
+  'dependency-b/baz'
+], function() {
+  return {
+    "dependency-a": {
+      "foo": "arguments[0]"
+    },
+    "dependency-b": {
+      "bar": "arguments[1]",
+      "baz": "arguments[2]"
+    }
+  };
+});
+```
+
+## deepCommonJS
+`deepCommonJS` format is just like `commonJS`, except that the object is nested so directories have child properties corresponding to files (e.g. `{ a: { b: { c: file } } }` instead of `{ 'a.b.c': file }`)
+### Example output
+```js
+// some_dependencies/__all.js
+define(function(require) {
+  return {
+    "dependency-a": {
+      "foo": require('./dependency-a/foo')
+    },
+    "dependency-b": {
+      "baz": require('./dependency-b/baz'),
+      "bar": require('./dependency-b/bar')
+    }
+  };
+});
+```
+
+## deepES6
+`deepES6` format is just like `es6`, except that the resulting object is nested so directories have child properties corresponding to files (e.g. `{ a: { b: { c: file } } }` instead of `{ 'a.b.c': file }`)
+### Example output
+```js
+import * as dependency_a_foo from 'dependency-a/foo'
+import * as dependency_b_baz from 'dependency-b/baz'
+import * as dependency_b_bar from 'dependency-b/bar'
+export {
+  dependency_a: {
+    foo: dependency_a_foo
+  },
+  dependency_b: {
+    baz: dependency_b_baz,
+    bar: dependency_b_bar
+  }
 }
 ```
 
@@ -134,17 +152,17 @@ var gulp = require('gulp');
 var Promise = require('bluebird');
 var metagen = require('directory-metagen');
 var metagenPaths = [{
-    path: __dirname + '/public/someDir/',
-    // exclusions: ['all.js'],
-    format: metagen.formats.deepCommonJS
-    //output: '__generated-all.js' // relative to path
+  path: __dirname + '/public/someDir/',
+  // exclusions: ['all.js'],
+  format: metagen.formats.deepCommonJS
+  //output: '__generated-all.js' // relative to path
 }];
 gulp.task('metagen', x => Promise.map(metagenPaths, metagen));
 gulp.task('metagen-watch', function() {
-    // Watch for files added and removed
-    require('chokidar').watch(_.map(metagenPaths, 'path'))
-        .on('add', x => gulp.start('metagen'))
-        .on('unlink', x => gulp.start('metagen'));
+  // Watch for files added and removed
+  require('chokidar').watch(_.map(metagenPaths, 'path'))
+    .on('add', x => gulp.start('metagen'))
+    .on('unlink', x => gulp.start('metagen'));
 });
 ```
 

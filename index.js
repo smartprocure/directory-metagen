@@ -4,6 +4,7 @@ let Promise = require('bluebird')
 let readDir = Promise.promisify(require('recursive-readdir'))
 let fs = Promise.promisifyAll(require('fs'))
 let path = require('path')
+let beautify = require('js-beautify').js_beautify
 
 let slice = start => thing => thing.slice(start)
 
@@ -20,9 +21,9 @@ let defaultFilter = _.filter(test(/.js|.html|.jsx|.ts|.coffee|.less|.css|.sass|.
 let metagen = options => relativeFilenames(options.path, options.exclusions || [options.output || '__all.js'])
   .then(options.filter || defaultFilter)
   .then(files => fs.writeFileAsync(
-      path.join(options.path, options.output || '__all.js'),
-      options.format(files.map(stripLeadingSlash), options))
-  )
+    path.join(options.path, options.output || '__all.js'),
+    beautify(options.format(files.map(stripLeadingSlash), options), {indent_size: options.indent_size || 2})
+  ))
 
 metagen.utils = {
   relativeFilenames,
@@ -34,17 +35,23 @@ metagen.utils = {
 // Output formats
 metagen.formats = {}
 metagen.formats.commonJS = files => `define(function(require) {
-    return {
-        ${files.map(noExt).map(file => `'${file}': require('./${file}')`).join(',\n        ')}
-    };
+  return {
+    ${files.map(noExt).map(file => `'${file}': require('./${file}')`).join(',\n')}
+  };
 });`
 metagen.formats.amd = files => `define([
-    ${files.map(file => `'${noExt(file)}'`).join(',\n    ')}
+  ${files.map(file => `'${noExt(file)}'`).join(',\n')}
 ], function() {
-    return {
-        ${files.map((file, i) => `'${noExt(file)}': arguments[${i}]`).join(',\n        ')}
-    }
+  return {
+    ${files.map((file, i) => `'${noExt(file)}': arguments[${i}]`).join(',\n')}
+  }
 });`
+metagen.formats.es6 = files => `${
+  files.map(file => `import ${varName(file)} from './${noExt(file)}'`).join('\n')
+}
+export default {
+  ${files.map(varName).join(',\n')}
+}`
 
 // Deep Formats
 let deepKeys = _.map(_.flow(noExt, _.replace(/\//g, '.')))
@@ -54,21 +61,19 @@ let unquote = _.replace(/"require(.*)'\)"/g, "require$1')")
 let deepify = _.flow(_.zipObjectDeep, stringify, indent, unquote)
 
 metagen.formats.deepCommonJS = files => `define(function(require) {
-    return ${deepify(deepKeys(files), files.map(file => `require('./${noExt(file)}')`))};
+  return ${deepify(deepKeys(files), files.map(file => `require('./${noExt(file)}')`))};
 });`
 metagen.formats.deepAMD = files => `define([
-    ${files.map(file => `'${noExt(file)}'`).join(',\n    ')}
+  ${files.map(file => `'${noExt(file)}'`).join(',\n    ')}
 ], function() {
-    return ${deepify(deepKeys(files), files.map((file, i) => `arguments[${i}]`))};
+  return ${deepify(deepKeys(files), files.map((file, i) => `arguments[${i}]`))};
 });`
+metagen.formats.deepES6 = files => `${
+  files.map(file => `import ${varName(file)} from './${noExt(file)}'`).join('\n')
+}
+export default ${deepify(deepKeys(files), files.map(varName)).replace(/"/g, '')}`
 
 var stripIndex = file => file.replace(/\/index$/, '')
 var varName = _.flow(noExt, stripIndex, sanitizeFileName)
-metagen.formats.es6 = files => `${
-    files.map(file => `import ${varName(file)} from './${noExt(file)}';`).join('\n')
-}
-export default {
-    ${files.map(file => `${varName(file)}`).join(',\n    ')}
-}`
 
 module.exports = metagen

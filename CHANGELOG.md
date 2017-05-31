@@ -1,3 +1,7 @@
+﻿# 1.4.0
+- Added deepES6, and moved every result to have two spaces. The output
+  indentation can be changed with options.indent_size
+
 # 1.3.2
 - Addressed the output issue #16.
 
