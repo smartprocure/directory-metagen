@@ -1,4 +1,7 @@
-﻿# 1.4.1
+﻿# 1.4.2
+- Use Circle 2.0 Config
+
+# 1.4.1
 - Add duti to our repo
 
 # 1.4.0
