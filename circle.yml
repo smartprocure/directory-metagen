@@ -4,7 +4,7 @@ machine:
     America/New_York
   node:
     version:
-        7.6.0
+        stable
 
 notify:
   webhooks:
@@ -15,14 +15,14 @@ dependencies:
     - echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
 
 test:
-  pre:
-    - npm run danger
-    - npm run lint
-  post:
+  override:
+    - npm run lint:ci
     - npm run cicoverage
     - ./node_modules/.bin/codacy-coverage < ./coverage/lcov.info
     - ./node_modules/.bin/codeclimate-test-reporter < ./coverage/lcov.info
     - rm -fr ./coverage
+    - npm run danger
+    - rm -rf test-results.json lint-results.json
 
 deployment:
   npm:

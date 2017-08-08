@@ -1,4 +1,7 @@
-﻿# 1.4.0
+﻿# 1.4.1
+- Add duti to our repo
+
+# 1.4.0
 - Added deepES6, and moved every result to have two spaces. The output
   indentation can be changed with options.indent_size
 
