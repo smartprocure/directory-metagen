@@ -1,4 +1,7 @@
-﻿# 1.4.2
+﻿# 1.4.3
+- Always run Duti in Circle
+
+# 1.4.2
 - Use Circle 2.0 Config
 
 # 1.4.1
