@@ -16,7 +16,7 @@
   },
   "devDependencies": {
     "chokidar-cli": "^1.2.0",
-    "codacy-coverage": "^2.0.1",
+    "codacy-coverage": "^2.0.3",
     "codeclimate-test-reporter": "^0.4.1",
     "coveralls": "^2.11.16",
     "duti": "latest",
