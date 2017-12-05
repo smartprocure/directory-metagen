@@ -34,7 +34,10 @@ metagen.utils = {
 
 // Output formats
 metagen.formats = {}
-metagen.formats.commonJS = files => `define(function(require) {
+metagen.formats.commonJS = files => `module.exports = {
+  ${files.map(noExt).map(file => `'${file}': require('./${file}')`).join(',\n')}
+};`
+metagen.formats.AMDCommonJS = files => `define(function(require) {
   return {
     ${files.map(noExt).map(file => `'${file}': require('./${file}')`).join(',\n')}
   };
@@ -60,7 +63,8 @@ let indent = _.replace(/\n/g, '\n    ')
 let unquote = _.replace(/"require(.*)'\)"/g, "require$1')")
 let deepify = _.flow(_.zipObjectDeep, stringify, indent, unquote)
 
-metagen.formats.deepCommonJS = files => `define(function(require) {
+metagen.formats.deepCommonJS = files => `module.exports = ${deepify(deepKeys(files), files.map(file => `require('./${noExt(file)}')`))};`
+metagen.formats.deepAMDCommonJS = files => `define(function(require) {
   return ${deepify(deepKeys(files), files.map(file => `require('./${noExt(file)}')`))};
 });`
 metagen.formats.deepAMD = files => `define([

@@ -60,12 +60,10 @@ describe('metagen', function () {
 
     const fileCommonJS = await fs.readFileAsync('public/publicFiles/output/__catalog.js', 'utf8')
 
-    assert.equal(fileCommonJS, `define(function(require) {
-  return {
-    'file1': require('./file1'),
-    'file2': require('./file2')
-  };
-});`)
+    assert.equal(fileCommonJS, `module.exports = {
+  'file1': require('./file1'),
+  'file2': require('./file2')
+};`)
 
     await metagen({
       output: '__catalog.js',
@@ -87,6 +85,35 @@ export default {
     await metagen({
       path: 'public/publicFiles/',
       format: metagen.formats.commonJS
+    })
+
+    const file = await fs.readFileAsync('public/publicFiles/__all.js', 'utf8')
+
+    assert.equal(file, `module.exports = {
+  'rootcss': require('./rootcss'),
+  'roothtml': require('./roothtml'),
+  'rootjs': require('./rootjs'),
+  'coffee/file1': require('./coffee/file1'),
+  'coffee/file2': require('./coffee/file2'),
+  'css/file1': require('./css/file1'),
+  'css/file2': require('./css/file2'),
+  'js/file1': require('./js/file1'),
+  'js/file2': require('./js/file2'),
+  'jsx/file1': require('./jsx/file1'),
+  'jsx/file2': require('./jsx/file2'),
+  'less/file1': require('./less/file1'),
+  'less/file2': require('./less/file2'),
+  'sass/file1': require('./sass/file1'),
+  'sass/file2': require('./sass/file2'),
+  'ts/file1': require('./ts/file1'),
+  'ts/file2': require('./ts/file2')
+};`)
+  })
+
+  it('AMDCommonJS', async () => {
+    await metagen({
+      path: 'public/publicFiles/',
+      format: metagen.formats.AMDCommonJS
     })
 
     const file = await fs.readFileAsync('public/publicFiles/__all.js', 'utf8')
@@ -273,6 +300,49 @@ export default {
     await metagen({
       path: 'public/publicFiles/',
       format: metagen.formats.deepCommonJS
+    })
+
+    const file = await fs.readFileAsync('public/publicFiles/__all.js', 'utf8')
+
+    assert.equal(file, `module.exports = {
+  "rootcss": require('./rootcss'),
+  "roothtml": require('./roothtml'),
+  "rootjs": require('./rootjs'),
+  "coffee": {
+    "file1": require('./coffee/file1'),
+    "file2": require('./coffee/file2')
+  },
+  "css": {
+    "file1": require('./css/file1'),
+    "file2": require('./css/file2')
+  },
+  "js": {
+    "file1": require('./js/file1'),
+    "file2": require('./js/file2')
+  },
+  "jsx": {
+    "file1": require('./jsx/file1'),
+    "file2": require('./jsx/file2')
+  },
+  "less": {
+    "file1": require('./less/file1'),
+    "file2": require('./less/file2')
+  },
+  "sass": {
+    "file1": require('./sass/file1'),
+    "file2": require('./sass/file2')
+  },
+  "ts": {
+    "file1": require('./ts/file1'),
+    "file2": require('./ts/file2')
+  }
+};`)
+  })
+
+  it('deepAMDCommonJS', async () => {
+    await metagen({
+      path: 'public/publicFiles/',
+      format: metagen.formats.deepAMDCommonJS
     })
 
     const file = await fs.readFileAsync('public/publicFiles/__all.js', 'utf8')

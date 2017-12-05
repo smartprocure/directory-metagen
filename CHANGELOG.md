@@ -1,4 +1,8 @@
-﻿# 1.4.3
+﻿# 1.5.0
+- Separated commonJS into commonJS (for Node) and AMDCommonJS. We now
+  also have deepCommonJS and deepAMDCommonJS.
+
+# 1.4.3
 - Always run Duti in Circle
 
 # 1.4.2

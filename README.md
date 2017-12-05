@@ -59,6 +59,18 @@ define([
 ```
 
 ## commonJS
+`commonJS` format is the CommonJS sugar syntax supported by NodeJS `module.exports = {}`. The generated object is a hash where the keys are the paths to the files without extensions, and the values are the required in modules
+### Example output
+```js
+// some_dependencies/__all.js
+module.exports = {
+  'dependency-a/foo': require('./dependency-a/foo'),
+  'dependency-b/bar': require('./dependency-b/bar'),
+  'dependency-b/baz': require('./dependency-b/baz')
+};
+```
+ 
+## AMDCommonJS
 `commonJS` format is the CommonJS sugar syntax supported by requirejs `define(function(require) {})`. The generated object is a hash where the keys are the paths to the files without extensions, and the values are the required in modules
 ### Example output
 ```js
@@ -110,6 +122,22 @@ define([
 
 ## deepCommonJS
 `deepCommonJS` format is just like `commonJS`, except that the object is nested so directories have child properties corresponding to files (e.g. `{ a: { b: { c: file } } }` instead of `{ 'a.b.c': file }`)
+### Example output
+```js
+// some_dependencies/__all.js
+module.exports = {
+  "dependency-a": {
+    "foo": require('./dependency-a/foo')
+  },
+  "dependency-b": {
+    "baz": require('./dependency-b/baz'),
+    "bar": require('./dependency-b/bar')
+  }
+};
+```
+
+## deepAMDCommonJS
+`deepAMDCommonJS` format is just like `AMDCommonJS`, except that the object is nested so directories have child properties corresponding to files (e.g. `{ a: { b: { c: file } } }` instead of `{ 'a.b.c': file }`)
 ### Example output
 ```js
 // some_dependencies/__all.js
