@@ -1,4 +1,7 @@
-﻿# 1.5.0
+﻿# 1.6.0
+- Making sure the output remains ordered.
+
+# 1.5.0
 - Separated commonJS into commonJS (for Node) and AMDCommonJS. We now
   also have deepCommonJS and deepAMDCommonJS.
 

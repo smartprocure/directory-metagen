@@ -22,7 +22,7 @@ let metagen = options => relativeFilenames(options.path, options.exclusions || [
   .then(options.filter || defaultFilter)
   .then(files => fs.writeFileAsync(
     path.join(options.path, options.output || '__all.js'),
-    beautify(options.format(files.map(stripLeadingSlash), options), {indent_size: options.indent_size || 2})
+    beautify(options.format(files.map(stripLeadingSlash).sort(), options), {indent_size: options.indent_size || 2})
   ))
 
 metagen.utils = {

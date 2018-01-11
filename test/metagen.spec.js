@@ -90,9 +90,6 @@ export default {
     const file = await fs.readFileAsync('public/publicFiles/__all.js', 'utf8')
 
     assert.equal(file, `module.exports = {
-  'rootcss': require('./rootcss'),
-  'roothtml': require('./roothtml'),
-  'rootjs': require('./rootjs'),
   'coffee/file1': require('./coffee/file1'),
   'coffee/file2': require('./coffee/file2'),
   'css/file1': require('./css/file1'),
@@ -103,6 +100,9 @@ export default {
   'jsx/file2': require('./jsx/file2'),
   'less/file1': require('./less/file1'),
   'less/file2': require('./less/file2'),
+  'rootcss': require('./rootcss'),
+  'roothtml': require('./roothtml'),
+  'rootjs': require('./rootjs'),
   'sass/file1': require('./sass/file1'),
   'sass/file2': require('./sass/file2'),
   'ts/file1': require('./ts/file1'),
@@ -120,9 +120,6 @@ export default {
 
     assert.equal(file, `define(function(require) {
   return {
-    'rootcss': require('./rootcss'),
-    'roothtml': require('./roothtml'),
-    'rootjs': require('./rootjs'),
     'coffee/file1': require('./coffee/file1'),
     'coffee/file2': require('./coffee/file2'),
     'css/file1': require('./css/file1'),
@@ -133,6 +130,9 @@ export default {
     'jsx/file2': require('./jsx/file2'),
     'less/file1': require('./less/file1'),
     'less/file2': require('./less/file2'),
+    'rootcss': require('./rootcss'),
+    'roothtml': require('./roothtml'),
+    'rootjs': require('./rootjs'),
     'sass/file1': require('./sass/file1'),
     'sass/file2': require('./sass/file2'),
     'ts/file1': require('./ts/file1'),
@@ -150,9 +150,6 @@ export default {
     const file = await fs.readFileAsync('public/publicFiles/__all.js', 'utf8')
 
     assert.equal(file, `define([
-  'rootcss',
-  'roothtml',
-  'rootjs',
   'coffee/file1',
   'coffee/file2',
   'css/file1',
@@ -163,25 +160,28 @@ export default {
   'jsx/file2',
   'less/file1',
   'less/file2',
+  'rootcss',
+  'roothtml',
+  'rootjs',
   'sass/file1',
   'sass/file2',
   'ts/file1',
   'ts/file2'
 ], function() {
   return {
-    'rootcss': arguments[0],
-    'roothtml': arguments[1],
-    'rootjs': arguments[2],
-    'coffee/file1': arguments[3],
-    'coffee/file2': arguments[4],
-    'css/file1': arguments[5],
-    'css/file2': arguments[6],
-    'js/file1': arguments[7],
-    'js/file2': arguments[8],
-    'jsx/file1': arguments[9],
-    'jsx/file2': arguments[10],
-    'less/file1': arguments[11],
-    'less/file2': arguments[12],
+    'coffee/file1': arguments[0],
+    'coffee/file2': arguments[1],
+    'css/file1': arguments[2],
+    'css/file2': arguments[3],
+    'js/file1': arguments[4],
+    'js/file2': arguments[5],
+    'jsx/file1': arguments[6],
+    'jsx/file2': arguments[7],
+    'less/file1': arguments[8],
+    'less/file2': arguments[9],
+    'rootcss': arguments[10],
+    'roothtml': arguments[11],
+    'rootjs': arguments[12],
     'sass/file1': arguments[13],
     'sass/file2': arguments[14],
     'ts/file1': arguments[15],
@@ -198,10 +198,7 @@ export default {
 
     const file = await fs.readFileAsync('public/publicFiles/__all.js', 'utf8')
 
-    assert.equal(file, `import rootcss from './rootcss'
-import roothtml from './roothtml'
-import rootjs from './rootjs'
-import coffee_file1 from './coffee/file1'
+    assert.equal(file, `import coffee_file1 from './coffee/file1'
 import coffee_file2 from './coffee/file2'
 import css_file1 from './css/file1'
 import css_file2 from './css/file2'
@@ -211,14 +208,14 @@ import jsx_file1 from './jsx/file1'
 import jsx_file2 from './jsx/file2'
 import less_file1 from './less/file1'
 import less_file2 from './less/file2'
+import rootcss from './rootcss'
+import roothtml from './roothtml'
+import rootjs from './rootjs'
 import sass_file1 from './sass/file1'
 import sass_file2 from './sass/file2'
 import ts_file1 from './ts/file1'
 import ts_file2 from './ts/file2'
 export default {
-  rootcss,
-  roothtml,
-  rootjs,
   coffee_file1,
   coffee_file2,
   css_file1,
@@ -229,6 +226,9 @@ export default {
   jsx_file2,
   less_file1,
   less_file2,
+  rootcss,
+  roothtml,
+  rootjs,
   sass_file1,
   sass_file2,
   ts_file1,
@@ -244,10 +244,7 @@ export default {
 
     const file = await fs.readFileAsync('public/publicFiles/__all.js', 'utf8')
 
-    assert.equal(file, `import rootcss from './rootcss'
-import roothtml from './roothtml'
-import rootjs from './rootjs'
-import coffee_file1 from './coffee/file1'
+    assert.equal(file, `import coffee_file1 from './coffee/file1'
 import coffee_file2 from './coffee/file2'
 import css_file1 from './css/file1'
 import css_file2 from './css/file2'
@@ -257,14 +254,14 @@ import jsx_file1 from './jsx/file1'
 import jsx_file2 from './jsx/file2'
 import less_file1 from './less/file1'
 import less_file2 from './less/file2'
+import rootcss from './rootcss'
+import roothtml from './roothtml'
+import rootjs from './rootjs'
 import sass_file1 from './sass/file1'
 import sass_file2 from './sass/file2'
 import ts_file1 from './ts/file1'
 import ts_file2 from './ts/file2'
 export default {
-  rootcss: rootcss,
-  roothtml: roothtml,
-  rootjs: rootjs,
   coffee: {
     file1: coffee_file1,
     file2: coffee_file2
@@ -285,6 +282,9 @@ export default {
     file1: less_file1,
     file2: less_file2
   },
+  rootcss: rootcss,
+  roothtml: roothtml,
+  rootjs: rootjs,
   sass: {
     file1: sass_file1,
     file2: sass_file2
@@ -305,9 +305,6 @@ export default {
     const file = await fs.readFileAsync('public/publicFiles/__all.js', 'utf8')
 
     assert.equal(file, `module.exports = {
-  "rootcss": require('./rootcss'),
-  "roothtml": require('./roothtml'),
-  "rootjs": require('./rootjs'),
   "coffee": {
     "file1": require('./coffee/file1'),
     "file2": require('./coffee/file2')
@@ -328,6 +325,9 @@ export default {
     "file1": require('./less/file1'),
     "file2": require('./less/file2')
   },
+  "rootcss": require('./rootcss'),
+  "roothtml": require('./roothtml'),
+  "rootjs": require('./rootjs'),
   "sass": {
     "file1": require('./sass/file1'),
     "file2": require('./sass/file2')
@@ -349,9 +349,6 @@ export default {
 
     assert.equal(file, `define(function(require) {
   return {
-    "rootcss": require('./rootcss'),
-    "roothtml": require('./roothtml'),
-    "rootjs": require('./rootjs'),
     "coffee": {
       "file1": require('./coffee/file1'),
       "file2": require('./coffee/file2')
@@ -372,6 +369,9 @@ export default {
       "file1": require('./less/file1'),
       "file2": require('./less/file2')
     },
+    "rootcss": require('./rootcss'),
+    "roothtml": require('./roothtml'),
+    "rootjs": require('./rootjs'),
     "sass": {
       "file1": require('./sass/file1'),
       "file2": require('./sass/file2')
@@ -393,9 +393,6 @@ export default {
     const file = await fs.readFileAsync('public/publicFiles/__all.js', 'utf8')
 
     assert.equal(file, `define([
-  'rootcss',
-  'roothtml',
-  'rootjs',
   'coffee/file1',
   'coffee/file2',
   'css/file1',
@@ -406,35 +403,38 @@ export default {
   'jsx/file2',
   'less/file1',
   'less/file2',
+  'rootcss',
+  'roothtml',
+  'rootjs',
   'sass/file1',
   'sass/file2',
   'ts/file1',
   'ts/file2'
 ], function() {
   return {
-    "rootcss": "arguments[0]",
-    "roothtml": "arguments[1]",
-    "rootjs": "arguments[2]",
     "coffee": {
-      "file1": "arguments[3]",
-      "file2": "arguments[4]"
+      "file1": "arguments[0]",
+      "file2": "arguments[1]"
     },
     "css": {
-      "file1": "arguments[5]",
-      "file2": "arguments[6]"
+      "file1": "arguments[2]",
+      "file2": "arguments[3]"
     },
     "js": {
-      "file1": "arguments[7]",
-      "file2": "arguments[8]"
+      "file1": "arguments[4]",
+      "file2": "arguments[5]"
     },
     "jsx": {
-      "file1": "arguments[9]",
-      "file2": "arguments[10]"
+      "file1": "arguments[6]",
+      "file2": "arguments[7]"
     },
     "less": {
-      "file1": "arguments[11]",
-      "file2": "arguments[12]"
+      "file1": "arguments[8]",
+      "file2": "arguments[9]"
     },
+    "rootcss": "arguments[10]",
+    "roothtml": "arguments[11]",
+    "rootjs": "arguments[12]",
     "sass": {
       "file1": "arguments[13]",
       "file2": "arguments[14]"
