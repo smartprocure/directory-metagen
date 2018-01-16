@@ -1,4 +1,8 @@
-﻿# 1.6.0
+﻿# 1.6.1
+- Updated chokidar, mocha, coveralls, nyc and
+  codeclimate-test-reporter to their latest version.
+
+# 1.6.0
 - Making sure the output remains ordered.
 
 # 1.5.0
