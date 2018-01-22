@@ -1,4 +1,7 @@
-﻿# 1.6.1
+﻿# 1.6.2
+- Updated Mocha to version 5.0.0
+
+# 1.6.1
 - Updated chokidar, mocha, coveralls, nyc and
   codeclimate-test-reporter to their latest version.
 
