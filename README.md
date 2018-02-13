@@ -213,3 +213,17 @@ options:
     --exclusions=ARG  expects a comma separated list of paths to exclude.
     --filter=ARG      expects a valid regular expression syntax to filter files.
 ```
+
+The path is sent as the first parameter to the CLI (without considering the options, which are preceded either by `-` or by `--`). For example, if your current directory is like:
+
+```
+src/
+    pages/
+        page1.js
+public/
+...
+```
+
+You can run: `./node_modules/.bin/metagen src/pages/ deepES6`, and it will produce an `__all.js` file inside of `src/pages/`.
+
+You can also specify the output file with `./node_modules/.bin/metagen src/pages/ deepES6 myCustomFile.js`, which will produce the output in `src/pages/myCustomFile`.
