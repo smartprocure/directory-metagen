@@ -10,6 +10,7 @@ Generates directory meta files for things such as including entire directories i
 Started as a feature request on `requirejs-metagen` but has grown beyond it (as it is no longer tied to requirejs).
 
 _Requires Node Version >= 4.3.2_
+_Works on Linux, OSX and Windows_
 
 # API
 `directory-metagen` takes an object with the following parameters:

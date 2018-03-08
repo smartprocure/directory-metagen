@@ -10,7 +10,7 @@ let slice = start => thing => thing.slice(start)
 
 // Path Utils
 let sanitizeFileName = file => file.replace(/-|\.|\//g, '_')
-let stripLeadingSlash = file => file.replace(/^\//g, '')
+let stripLeadingSlash = file => file.replace(new RegExp(`^\\${path.sep}`, 'g'), '')
 let filename = file => noExt(_.last(file.split('/')))
 let relativeFilenames = (dir, exclusions) => readDir(dir, exclusions).map(slice(dir.length))
 let noExt = file => file.slice(0, _.lastIndexOf('.', file))

@@ -1,4 +1,7 @@
-﻿# 1.6.2
+# 1.6.3
+- @ssbyoung Fixed issue where the leading slash was wrong on windows.
+
+# 1.6.2
 - Updated Mocha to version 5.0.0
 
 # 1.6.1
