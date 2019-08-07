@@ -10,7 +10,7 @@
     "bluebird": "^3.5.0",
     "chokidar": "^2.0.0",
     "dashdash": "^1.14.1",
-    "js-beautify": "^1.6.14",
+    "js-beautify": "^1.10.2",
     "lodash": "^4.17.3",
     "recursive-readdir": "^2.1.1"
   },
