@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "bluebird": "^3.5.0",
-    "chokidar": "^2.0.0",
+    "chokidar": "^3.2.3",
     "dashdash": "^1.14.1",
     "js-beautify": "^1.6.14",
     "lodash": "^4.17.3",
